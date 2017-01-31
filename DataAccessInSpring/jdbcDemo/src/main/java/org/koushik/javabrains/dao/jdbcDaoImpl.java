@@ -9,6 +9,7 @@ import javax.sql.DataSource;
 
 import org.koushik.javabrains.model.Circle;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.stereotype.Component;
 
 
@@ -22,6 +23,9 @@ public class jdbcDaoImpl {
 	@Autowired
 	private DataSource dataSource;
 	
+	// for now we will init it just here
+	private JdbcTemplate jdbcTemplate = new JdbcTemplate();
+	
 	public DataSource getDataSource() {
 		return dataSource;
 	}
@@ -34,6 +38,8 @@ public class jdbcDaoImpl {
 		
 		/* JDBC code here... */
 		
+		/* before Query Execution */
+		
 		Connection conn = null;
 	
 		try {
@@ -45,6 +51,8 @@ public class jdbcDaoImpl {
 			PreparedStatement ps = conn.prepareStatement("SELECT * FROM circle WHERE id = ?");
 			// replace '?' with 'circleId'
 			ps.setInt(1, circleId);  
+			
+			/* after Query Execution */
 			
 			/* We need RecordSet for execution*/
 			Circle circle = null;
@@ -75,5 +83,20 @@ public class jdbcDaoImpl {
 		/* So, we can see how much pain we have with all of this,
 		 * just for getting a single record from database :( */
 	
+	}
+	
+	/** Using JdbcTemplate make interaction with DB easy and short! */
+	public int getCircleCount() {
+		String sql = "SELECT COUNT(*) FROM CIRCLE";
+		jdbcTemplate.setDataSource(getDataSource());
+		return jdbcTemplate.queryForObject(sql, Integer.class);	
+	}
+
+	public JdbcTemplate getJdbcTemplate() {
+		return jdbcTemplate;
+	}
+
+	public void setJdbcTemplate(JdbcTemplate jdbcTemplate) {
+		this.jdbcTemplate = jdbcTemplate;
 	}
 }
