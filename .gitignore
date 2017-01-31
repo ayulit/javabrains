@@ -7,3 +7,9 @@ release.properties
 dependency-reduced-pom.xml
 buildNumber.properties
 .mvn/timing.properties
+
+# Recursive ignorance using wildcard
+**/.classpath
+**/.project
+**/.settings
+
