@@ -19,21 +19,24 @@ import org.springframework.stereotype.Component;
 public class jdbcDaoImpl {
 
 	// DataSource has driver, url etc.
-	// we can use @Autowired because it is only one DataSource type 
-	@Autowired
 	private DataSource dataSource;
 	
-	// for now we will init it just here
-	private JdbcTemplate jdbcTemplate = new JdbcTemplate();
+
+	private JdbcTemplate jdbcTemplate;
 	
 	public DataSource getDataSource() {
 		return dataSource;
 	}
 
+	// setter injection ?!
+	@Autowired
 	public void setDataSource(DataSource dataSource) {
-		this.dataSource = dataSource;
+		// this is common practice to use DataSource setter to create instance of JdbcTemplate
+		this.jdbcTemplate = new JdbcTemplate(dataSource);
 	}
 	
+	/* Now this method will be failed because we are not initializing dataSource!
+	 * So the solution is to use JdbcTemplate here too  */
 	public Circle getCircle(int circleId) {
 		
 		/* JDBC code here... */
@@ -88,7 +91,7 @@ public class jdbcDaoImpl {
 	/** Using JdbcTemplate make interaction with DB easy and short! */
 	public int getCircleCount() {
 		String sql = "SELECT COUNT(*) FROM CIRCLE";
-		jdbcTemplate.setDataSource(getDataSource());
+		
 		return jdbcTemplate.queryForObject(sql, Integer.class);	
 	}
 

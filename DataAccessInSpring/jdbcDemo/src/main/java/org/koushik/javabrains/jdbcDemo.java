@@ -12,8 +12,8 @@ public class jdbcDemo {
 		ApplicationContext ctx = new ClassPathXmlApplicationContext("spring.xml");
 		jdbcDaoImpl dao = ctx.getBean("jdbcDaoImpl", jdbcDaoImpl.class);
 		
-		Circle circle = dao.getCircle(1);
-		System.out.println(circle.getName());
+/*		Circle circle = dao.getCircle(1);
+		System.out.println(circle.getName());*/
 		
 		System.out.println(dao.getCircleCount());
 	}
