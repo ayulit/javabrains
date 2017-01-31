@@ -16,7 +16,16 @@
 		<context:annotation-config/>		
 		<context:component-scan base-package="org.koushik.javabrains"/>
 	
-
+		<!-- RMB + 'Copy Qualified Name' on 
+		Project Explorer - %PROJECT% - Maven Dependencies
+		 - spring-jdbc-... - ...jdbc.datasource - DriverManagerDataSource.class -->   
+		<bean id="dataSource"
+		      class="org.springframework.jdbc.datasource.DriverManagerDataSource">
+		      <!-- we use client driver from Derby client dependency -->
+		      <property name="driverClassName" value="org.apache.derby.jdbc.ClientDriver"/>
+		      <!-- we use server, configured on our system with existed db -->
+		      <property name="url" value="jdbc:derby://localhost:1527/db;create=true"/>
+	    </bean>	
 	
 </beans>
 

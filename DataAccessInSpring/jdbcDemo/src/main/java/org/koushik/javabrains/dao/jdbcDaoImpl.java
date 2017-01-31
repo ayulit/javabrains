@@ -1,12 +1,14 @@
 package org.koushik.javabrains.dao;
 
 import java.sql.Connection;
-import java.sql.DriverManager;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 
+import javax.sql.DataSource;
+
 import org.koushik.javabrains.model.Circle;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
 
@@ -14,24 +16,31 @@ import org.springframework.stereotype.Component;
 // Bean this will be automatically as we use '<context:component-scan..' at spring.xml
 @Component
 public class jdbcDaoImpl {
+
+	// DataSource has driver, url etc.
+	// we can use @Autowired because it is only one DataSource type 
+	@Autowired
+	private DataSource dataSource;
+	
+	public DataSource getDataSource() {
+		return dataSource;
+	}
+
+	public void setDataSource(DataSource dataSource) {
+		this.dataSource = dataSource;
+	}
 	
 	public Circle getCircle(int circleId) {
 		
 		/* JDBC code here... */
 		
 		Connection conn = null;
-		// we use server, configured on our system with existed db
-		String url = "jdbc:derby://localhost:1527/db";
-		
-		// we use client driver from Derby client dependency
-		String driver = "org.apache.derby.jdbc.ClientDriver";
-		
+	
 		try {
-			// Initializing driver		
-			Class.forName(driver).newInstance();
+
 			
 			// Creating connection
-			conn = DriverManager.getConnection(url);
+			conn = dataSource.getConnection();
 			
 			PreparedStatement ps = conn.prepareStatement("SELECT * FROM circle WHERE id = ?");
 			// replace '?' with 'circleId'
