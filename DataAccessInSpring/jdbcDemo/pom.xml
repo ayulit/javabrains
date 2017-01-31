@@ -12,6 +12,13 @@
   </properties>
   
   <dependencies>
+
+  	  <!-- Main Spring -->
+      <dependency>
+		  <groupId>org.springframework</groupId>
+		  <artifactId>spring-context</artifactId>
+		  <version>${spring.ver}</version>
+      </dependency>  
       
       <!-- Derby client only -->
       <dependency>
