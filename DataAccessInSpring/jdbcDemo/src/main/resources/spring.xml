@@ -18,13 +18,21 @@
 	
 		<!-- RMB + 'Copy Qualified Name' on 
 		Project Explorer - %PROJECT% - Maven Dependencies
-		 - spring-jdbc-... - ...jdbc.datasource - DriverManagerDataSource.class -->   
+		 - spring-jdbc-... - ...jdbc.datasource - DriverManagerDataSource.class -->
+		 
+		<!-- now we will use DBCP as dataSource for polling support -->   
 		<bean id="dataSource"
-		      class="org.springframework.jdbc.datasource.DriverManagerDataSource">
+		      class="org.apache.commons.dbcp.BasicDataSource">
 		      <!-- we use client driver from Derby client dependency -->
 		      <property name="driverClassName" value="org.apache.derby.jdbc.ClientDriver"/>
 		      <!-- we use server, configured on our system with existed db -->
 		      <property name="url" value="jdbc:derby://localhost:1527/db;create=true"/>
+		      
+		      <!-- initial size of the pool -->
+		      <property name="initialSize" value="2"/>
+		      
+		      <!-- maximum active connections in the pool at any point of time -->
+		      <property name="maxActive" value="5"/>
 	    </bean>	
 	
 </beans>
