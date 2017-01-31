@@ -7,9 +7,12 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 
 import org.koushik.javabrains.model.Circle;
+import org.springframework.stereotype.Component;
 
 
 /** Responsible for talking to the DB and getting the value */
+// Bean this will be automatically as we use '<context:component-scan..' at spring.xml
+@Component
 public class jdbcDaoImpl {
 	
 	public Circle getCircle(int circleId) {
