@@ -12,6 +12,9 @@ import org.koushik.javabrains.model.Circle;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.jdbc.core.RowMapper;
+import org.springframework.jdbc.core.namedparam.MapSqlParameterSource;
+import org.springframework.jdbc.core.namedparam.NamedParameterJdbcTemplate;
+import org.springframework.jdbc.core.namedparam.SqlParameterSource;
 import org.springframework.stereotype.Component;
 
 
@@ -23,6 +26,7 @@ public class jdbcDaoImpl {
 	// DataSource has driver, url etc.
 	private DataSource dataSource;
 	private JdbcTemplate jdbcTemplate;
+	private NamedParameterJdbcTemplate namedParameterJdbcTemplate;
 	
 	public DataSource getDataSource() {
 		return dataSource;
@@ -33,6 +37,8 @@ public class jdbcDaoImpl {
 	public void setDataSource(DataSource dataSource) {
 		// this is common practice to use DataSource setter to create instance of JdbcTemplate
 		this.jdbcTemplate = new JdbcTemplate(dataSource);
+		
+		this.namedParameterJdbcTemplate = new NamedParameterJdbcTemplate(dataSource);
 	}
 	
 	public JdbcTemplate getJdbcTemplate() {
@@ -148,10 +154,24 @@ public class jdbcDaoImpl {
 		return (List<Circle>) jdbcTemplate.query(sql, new CircleMapper());
 	}
 	
+//	public void insertCircle(Circle circle) {
+//		String sql = "INSERT INTO circle (id,name) VALUES (?,?)";
+//		
+//		jdbcTemplate.update(sql, new Object[] {circle.getId(), circle.getName()});
+//	}
+	
+	/** Insert using named parameters */
 	public void insertCircle(Circle circle) {
-		String sql = "INSERT INTO circle (id,name) VALUES (?,?)";
+		String sql = "INSERT INTO circle (id,name) VALUES (:id, :name)";
+	
+		// this we will have to prepare to substitute param vales like :blah
+		SqlParameterSource namedParameters = 
+				new MapSqlParameterSource("id", circle.getId())
+				       .addValue("name", circle.getName());
 		
-		jdbcTemplate.update(sql, new Object[] {circle.getId(), circle.getName()});
+		// passing...
+		namedParameterJdbcTemplate.update(sql, namedParameters);
+		
 	}
 	
 	public void createTriangleTable() {

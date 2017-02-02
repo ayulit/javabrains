@@ -21,11 +21,11 @@ public class jdbcDemo {
 		/* Getting whole row and get name */
 		System.out.println(dao.getCircleforId(1).getName());
 		
-/*		dao.insertCircle(new Circle(3, "Third Circle"));
+		dao.insertCircle(new Circle(5, "Fifth Circle"));
 		
-		System.out.println(dao.getAllCircles().size());*/
+		System.out.println(dao.getAllCircles().size());
 		
-		dao.createTriangleTable();
+		// dao.createTriangleTable();
 	}
 
 }
