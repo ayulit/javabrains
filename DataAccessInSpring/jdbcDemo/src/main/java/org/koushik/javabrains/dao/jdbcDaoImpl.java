@@ -45,6 +45,8 @@ public class jdbcDaoImpl {
 		this.jdbcTemplate = jdbcTemplate;
 	}
 	
+	
+	/** THIS IS NO LONGER REQUIRED BECAUSE OF SPRING */
 	/* Now this method will be failed because we are not initializing dataSource!
 	 * So the solution is to use JdbcTemplate here too  */
 	public Circle getCircle(int circleId) {
@@ -98,6 +100,9 @@ public class jdbcDaoImpl {
 	
 	}
 	
+	
+	/** FETCHING DATA CONCEPT USING Spring's JdbcTemplate*/
+	
 	/** Using JdbcTemplate make interaction with DB easy and short! */
 	public int getCircleCount() {
 		String sql = "SELECT COUNT(*) FROM CIRCLE";
@@ -137,7 +142,7 @@ public class jdbcDaoImpl {
 	}
 	
 	/**
-	 * Getting many all rows from DB - all the circles
+	 * Getting many all rows from DB - all the circles as a List
 	 * */
 	public List<Circle> getAllCircles() {
 		String sql = "SELECT * FROM circle";
