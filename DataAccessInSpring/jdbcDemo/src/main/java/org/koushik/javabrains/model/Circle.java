@@ -23,6 +23,9 @@ public class Circle {
 	public Circle(int circleId, String name) {
 		setId(circleId);
 		setName(name);
+	}
+	public Circle() {
+		// TODO Auto-generated constructor stub
 	}	
 
 }

@@ -10,6 +10,7 @@ import javax.sql.DataSource;
 import org.koushik.javabrains.model.Circle;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.jdbc.core.JdbcTemplate;
+import org.springframework.jdbc.core.RowMapper;
 import org.springframework.stereotype.Component;
 
 
@@ -33,6 +34,14 @@ public class jdbcDaoImpl {
 	public void setDataSource(DataSource dataSource) {
 		// this is common practice to use DataSource setter to create instance of JdbcTemplate
 		this.jdbcTemplate = new JdbcTemplate(dataSource);
+	}
+	
+	public JdbcTemplate getJdbcTemplate() {
+		return jdbcTemplate;
+	}
+
+	public void setJdbcTemplate(JdbcTemplate jdbcTemplate) {
+		this.jdbcTemplate = jdbcTemplate;
 	}
 	
 	/* Now this method will be failed because we are not initializing dataSource!
@@ -100,12 +109,33 @@ public class jdbcDaoImpl {
 		
 		return jdbcTemplate.queryForObject(sql, new Object[] {circleid}, String.class);		
 	}
-
-	public JdbcTemplate getJdbcTemplate() {
-		return jdbcTemplate;
+	
+	/** Using Row Mapper for map whole row on object (=model) */
+	public Circle getCircleforId(int circleId) {
+		String sql = "SELECT * FROM circle WHERE id = ?";
+		
+		return jdbcTemplate.queryForObject(sql, new Object[] {circleId}, new CircleMapper());
 	}
+	
+	/**
+	 * Making class implementing RowMapper
+	 * static final here is a good practice
+	 * */
+	private static final class CircleMapper implements RowMapper<Circle> {
 
-	public void setJdbcTemplate(JdbcTemplate jdbcTemplate) {
-		this.jdbcTemplate = jdbcTemplate;
+		@Override
+		public Circle mapRow(ResultSet rs, int rowNum) throws SQLException {
+			Circle circle = new Circle();
+			
+			circle.setId(rs.getInt("id"));
+			circle.setName(rs.getString("name"));
+			
+			return circle;
+		}
+		
 	}
+	
+
+
+
 }

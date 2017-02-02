@@ -17,6 +17,9 @@ public class jdbcDemo {
 		
 		System.out.println(dao.getCircleCount());
 		System.out.println(dao.getCircleName(1));
+		
+		/* Getting whole row and get name */
+		System.out.println(dao.getCircleforId(1).getName());
 	}
 
 }
