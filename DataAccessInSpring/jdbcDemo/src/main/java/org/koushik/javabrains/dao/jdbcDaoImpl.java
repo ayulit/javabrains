@@ -22,8 +22,6 @@ public class jdbcDaoImpl {
 
 	// DataSource has driver, url etc.
 	private DataSource dataSource;
-	
-
 	private JdbcTemplate jdbcTemplate;
 	
 	public DataSource getDataSource() {
@@ -49,11 +47,11 @@ public class jdbcDaoImpl {
 	/** THIS IS NO LONGER REQUIRED BECAUSE OF SPRING */
 	/* Now this method will be failed because we are not initializing dataSource!
 	 * So the solution is to use JdbcTemplate here too  */
-	public Circle getCircle(int circleId) {
+/*	public Circle getCircle(int circleId) {
 		
-		/* JDBC code here... */
+		 JDBC code here... 
 		
-		/* before Query Execution */
+		 before Query Execution 
 		
 		Connection conn = null;
 	
@@ -67,9 +65,9 @@ public class jdbcDaoImpl {
 			// replace '?' with 'circleId'
 			ps.setInt(1, circleId);  
 			
-			/* after Query Execution */
+			 after Query Execution 
 			
-			/* We need RecordSet for execution*/
+			 We need RecordSet for execution
 			Circle circle = null;
 			ResultSet rs = ps.executeQuery();
 			
@@ -78,7 +76,7 @@ public class jdbcDaoImpl {
 				circle = new Circle(circleId, rs.getString("name"));
 			}
 			
-			/* Don't forget to close! */
+			 Don't forget to close! 
 			rs.close();
 			ps.close();
 			
@@ -91,14 +89,14 @@ public class jdbcDaoImpl {
 			try {
 				conn.close();	
 			} catch (SQLException e) {
-				/* there is nothing we can do here...*/
+				 there is nothing we can do here...
 			}			
 		}
 		
-		/* So, we can see how much pain we have with all of this,
-		 * just for getting a single record from database :( */
+		 So, we can see how much pain we have with all of this,
+		 * just for getting a single record from database :( 
 	
-	}
+	}*/
 	
 	
 	/** FETCHING DATA CONCEPT USING Spring's JdbcTemplate*/
@@ -148,6 +146,12 @@ public class jdbcDaoImpl {
 		String sql = "SELECT * FROM circle";
 		
 		return (List<Circle>) jdbcTemplate.query(sql, new CircleMapper());
+	}
+	
+	public void insertCircle(Circle circle) {
+		String sql = "INSERT INTO circle (id,name) VALUES (?,?)";
+		
+		jdbcTemplate.update(sql, new Object[] {circle.getId(), circle.getName()});
 	}
 
 

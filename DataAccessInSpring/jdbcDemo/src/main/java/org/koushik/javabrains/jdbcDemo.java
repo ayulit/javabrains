@@ -21,6 +21,8 @@ public class jdbcDemo {
 		/* Getting whole row and get name */
 		System.out.println(dao.getCircleforId(1).getName());
 		
+		dao.insertCircle(new Circle(3, "Third Circle"));
+		
 		System.out.println(dao.getAllCircles().size());
 	}
 
