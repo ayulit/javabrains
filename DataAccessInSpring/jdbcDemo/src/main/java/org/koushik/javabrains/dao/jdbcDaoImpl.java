@@ -153,6 +153,12 @@ public class jdbcDaoImpl {
 		
 		jdbcTemplate.update(sql, new Object[] {circle.getId(), circle.getName()});
 	}
+	
+	public void createTriangleTable() {
+		String sql = "CREATE TABLE triangle (id INTEGER, name VARCHAR(50))";
+		
+		jdbcTemplate.execute(sql);
+	}
 
 
 }
