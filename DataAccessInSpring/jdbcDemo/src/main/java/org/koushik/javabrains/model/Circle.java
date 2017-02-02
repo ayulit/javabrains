@@ -1,8 +1,15 @@
 package org.koushik.javabrains.model;
 
-/** This is model class, it models table from db */
-public class Circle {
+import javax.persistence.Entity;
+import javax.persistence.Id;
 
+/** This is model class, it models table from db */
+
+// Hibernate annotation
+@Entity
+public class Circle {
+	// we need t provide @Id annotation too
+	@Id
 	private int id;
 	private String name;
 	

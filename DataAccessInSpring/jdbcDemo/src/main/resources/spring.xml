@@ -40,6 +40,29 @@
 	          class="org.koushik.javabrains.dao.NamedParameterJdbcDaoImpl">
         	<property name="dataSource" ref="dataSource"/>
         </bean>
+        
+        
+        <!-- Class will be a support class from Spring for using Hibernate -->
+        <bean id="sessionFactory" 
+              class="org.springframework.orm.hibernate4.LocalSessionFactoryBean">
+        	
+        	<!-- referring for already existed data source! -->
+        	<property name="dataSource" ref="dataSource"/>
+        	
+        	<!-- what are packages to scan for DAO / model objects (annotated classes) -->
+        	<property name="packagesToScan" value="org.koushik.javabrains.model"/>
+        	
+        	<!-- what language to use when talking to the database -->
+        	<!-- here it will be Derby dialect -->
+        	<property name="hibernateProperties">
+        		<props>
+        		    <!-- inside hibernate-core-3.6.10.Final.jar -->
+        			<prop key="dialect">org.hibernate.dialect.DerbyDialect</prop>
+        		</props>
+        	</property>
+        	
+        </bean>
+        
 	
 </beans>
 
