@@ -4,6 +4,7 @@ import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.util.List;
 
 import javax.sql.DataSource;
 
@@ -135,7 +136,14 @@ public class jdbcDaoImpl {
 		
 	}
 	
-
+	/**
+	 * Getting many all rows from DB - all the circles
+	 * */
+	public List<Circle> getAllCircles() {
+		String sql = "SELECT * FROM circle";
+		
+		return (List<Circle>) jdbcTemplate.query(sql, new CircleMapper());
+	}
 
 
 }

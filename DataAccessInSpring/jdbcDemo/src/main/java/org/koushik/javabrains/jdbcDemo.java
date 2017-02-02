@@ -20,6 +20,8 @@ public class jdbcDemo {
 		
 		/* Getting whole row and get name */
 		System.out.println(dao.getCircleforId(1).getName());
+		
+		System.out.println(dao.getAllCircles().size());
 	}
 
 }
