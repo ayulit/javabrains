@@ -5,6 +5,7 @@ import java.util.Date;
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
 import org.hibernate.cfg.Configuration;
+import org.javabrains.koushnik.dto.Address;
 import org.javabrains.koushnik.dto.UserDetails;
 
 public class HibernateTest {
@@ -13,10 +14,14 @@ public class HibernateTest {
 		
 		UserDetails user = new UserDetails();		
 		user.setUserName("First User");
-
-		UserDetails user2 = new UserDetails();		
-		user2.setUserName("Second User");
 		
+		Address addr = new Address();
+		
+		addr.setStreet("Street Name");
+		addr.setCity("City Name");
+		
+		user.setAddress(addr);
+				
 		/* now we need persist the object to the DB
            let's use Hibernate API without DAO! */
 		
@@ -31,7 +36,7 @@ public class HibernateTest {
 		
 		// saving objects
 		session.save(user);
-		session.save(user2);
+
 		
 		// after saving we will have to end the transaction
 		session.getTransaction().commit();

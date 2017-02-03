@@ -2,6 +2,7 @@ package org.javabrains.koushnik.dto;
 
 import java.util.Date;
 
+import javax.persistence.Embedded;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
@@ -23,12 +24,14 @@ public class UserDetails {
 	
 	//@Transient // skip this field
 	private String userName;
-	
+		
 	@Temporal(TemporalType.DATE)  // for persisting date w/o time
 	//@Temporal(TemporalType.TIME)  // for persisting time w/o date
 	private Date joinedDate;
 	
-	private String Address;
+	// this is Value object
+	@Embedded // don't confuse with @Embeddable, which we mark class declaration
+	private Address address;
 	
 	@Lob // means that it is a LARGE object, will be CLOB type inside DB
 	private String description;
@@ -42,11 +45,11 @@ public class UserDetails {
 	public void setJoinedDate(Date joinedDate) {
 		this.joinedDate = joinedDate;
 	}
-	public String getAddress() {
-		return Address;
+	public Address getAddress() {
+		return address;
 	}
-	public void setAddress(String address) {
-		Address = address;
+	public void setAddress(Address address) {
+		this.address = address;
 	}
 	public String getDescription() {
 		return description;
