@@ -3,6 +3,7 @@ package org.javabrains.koushnik.dto;
 import java.util.Date;
 
 import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
 import javax.persistence.Lob;
 import javax.persistence.Table;
@@ -17,7 +18,7 @@ public class UserDetails {
 	// so Entity name will be like a class,
 	// but Table name will be as defined in @Table(name='..')
 		
-	@Id // for Primary Key		
+	@Id @GeneratedValue // for Primary Key + autogenerate	
 	private int userId;
 	
 	//@Transient // skip this field

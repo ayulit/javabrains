@@ -11,17 +11,11 @@ public class HibernateTest {
 
 	public static void main(String[] args) {
 		
-		UserDetails user = new UserDetails();
-		
-		user.setUserId(1);
+		UserDetails user = new UserDetails();		
 		user.setUserName("First User");
-		user.setAddress("First User's address");
-		
-		// we will use present day just for example
-		user.setJoinedDate(new Date());
-		
-		user.setDescription("Description of the user goes here");
-		
+
+		UserDetails user2 = new UserDetails();		
+		user2.setUserName("Second User");
 		
 		/* now we need persist the object to the DB
            let's use Hibernate API without DAO! */
@@ -35,8 +29,9 @@ public class HibernateTest {
 		// need to create a transaction
 		session.beginTransaction();
 		
-		// saving object
+		// saving objects
 		session.save(user);
+		session.save(user2);
 		
 		// after saving we will have to end the transaction
 		session.getTransaction().commit();
