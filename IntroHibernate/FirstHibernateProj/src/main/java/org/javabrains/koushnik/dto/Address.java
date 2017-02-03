@@ -1,13 +1,21 @@
 package org.javabrains.koushnik.dto;
 
+import javax.persistence.Column;
 import javax.persistence.Embeddable;
 
 @Embeddable // annotation for specify Value type object (in opposition to Entity type object)
 public class Address {
 
+	@Column(name="STREET_NAME")
 	private String street;
+	
+	@Column(name="CITY_NAME")
 	private String city;
+	
+	@Column(name="STATE_NAME")
 	private String state;
+	
+	@Column(name="PIN_CODE")
 	private String pincode;
 	
 	public String getStreet() {
