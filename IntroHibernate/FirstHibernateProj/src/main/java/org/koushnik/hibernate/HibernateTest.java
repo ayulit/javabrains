@@ -20,7 +20,15 @@ public class HibernateTest {
 		addr.setStreet("Street Name");
 		addr.setCity("City Name");
 		
-		user.setAddress(addr);
+		user.setHomeAddress(addr);
+		
+		Address addr2 = new Address();
+		
+		addr2.setStreet("Second Street Name");
+		addr2.setCity("Second City Name");
+		
+		user.setHomeAddress(addr);
+		user.setOfficeAddress(addr2);
 				
 		/* now we need persist the object to the DB
            let's use Hibernate API without DAO! */
