@@ -30,7 +30,9 @@
 		<!-- Echo all executed SQL to stdout: useful feature while learning! -->
 		<property name="show_sql">true</property>
 		
-		<!-- Drop and re-create the database schema on startup: Hibernate creates the table! -->
+		<!-- Drop and re-create the database schema on startup,
+		-create: every time
+		-update: if ONLY model changed!-->
 		<property name="hbm2ddl.auto">create</property>
 		
 		<!-- Names the annotated entity class: what is model -->
