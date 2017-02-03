@@ -11,8 +11,8 @@ public class HibernateTest {
 		
 		UserDetails user = new UserDetails();
 		
-		user.setUserId(1);
-		user.setUserName("First User");
+		user.setUserId(3);
+		user.setUserName("Third User");
 		
 		// now we need persist the object to the DB
         // let's use Hibernate API without DAO!
