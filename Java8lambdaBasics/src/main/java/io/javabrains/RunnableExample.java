@@ -14,7 +14,12 @@ public class RunnableExample {
 		});
 		
 		myThread.run();
-
+		
+		/* Simple inline lambda -
+		 * it's OK because Runnable has only one method */
+		Thread myLambdaThread = new Thread(()->System.out.println("Printed inside Lambda Runnable"));
+		myLambdaThread.run();
+		
 	}
 
 }
