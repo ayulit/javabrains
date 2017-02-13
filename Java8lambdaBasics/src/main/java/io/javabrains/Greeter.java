@@ -34,6 +34,9 @@ public class Greeter {
 		greeter.greet(helloWorldGreeting);		
 		greeter.greet(lambdaGreeting);
 		greeter.greet(innerClassGreating);
+
+		// Type Inference
+		greeter.greet(() -> System.out.println("Hello world!"));
 			
 		
 	}
