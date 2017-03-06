@@ -7,7 +7,7 @@ import java.util.Map;
 import org.koushik.javabrains.database.DatabaseClass;
 import org.koushik.javabrains.model.Message;
 
-/** Service for data extraction from DB */
+/** Service for data's interaction with DB */
 public class MessageService {
 
 	// stub for DB: using static class
