@@ -58,6 +58,4 @@ public class Profile {
 		this.created = created;
 	}
 	
-	
-
 }
