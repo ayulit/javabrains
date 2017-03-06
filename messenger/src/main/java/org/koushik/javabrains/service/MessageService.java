@@ -15,8 +15,8 @@ public class MessageService {
 	
 	// to hardcode a creation of a few messages
 	public MessageService() {
-		messages.put(1L, new Message(1, "I'm your father.", "Darth Vader"));
-		messages.put(2L, new Message(2, "May the Force be with U.", "Obi-Wan"));
+		messages.put(1L, new Message(1, "I'm your father, Luke", "Darth Vader"));
+		messages.put(2L, new Message(2, "May the Force be with you", "Obi-Wan"));
 	}
 	
 	public List<Message> getAllMessages() {		
