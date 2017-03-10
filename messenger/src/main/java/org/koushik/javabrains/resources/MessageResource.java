@@ -47,7 +47,7 @@ public class MessageResource {
 	@GET
 	@Path("/{messageId}")	
 	public Message getMessage(@PathParam("messageId") long id) {
-		
+		// resource won't catch the exception and it goes to JAX-RS
 		return messageService.getMessage(id);
 		
 	}
