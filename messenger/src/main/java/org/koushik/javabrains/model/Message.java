@@ -1,8 +1,11 @@
 package org.koushik.javabrains.model;
 
 import java.util.Date;
+import java.util.HashMap;
+import java.util.Map;
 
 import javax.xml.bind.annotation.XmlRootElement;
+import javax.xml.bind.annotation.XmlTransient;
 
 /** Model class for data layer (JDBC / Hibernate / etc) */
 @XmlRootElement 	// JAXB in action
@@ -12,6 +15,8 @@ public class Message {
 	private String message;
 	private Date created;
 	private String author;
+	// every message has a bunch of comments!
+	private Map<Long, Comment> comments = new HashMap<>();
  
 	public Message() {
 		/* no-arg constructor always needed,
@@ -50,6 +55,17 @@ public class Message {
 	}
 	public void setAuthor(String author) {
 		this.author = author;
+	}
+
+	// we dont want to comment data to show up,
+	// when the message instances pulled up in the API
+	@XmlTransient // so ignorance for conversion
+	public Map<Long, Comment> getComments() {
+		return comments;
+	}
+
+	public void setComments(Map<Long, Comment> comments) {
+		this.comments = comments;
 	}
 	
 }

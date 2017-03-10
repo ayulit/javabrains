@@ -63,6 +63,12 @@ public class MessageResource {
 	public void deleteMessage(@PathParam("messageId") long id) {
 		messageService.removeMessage(id);
 	}
+	
+	// Subresource DELEGATION: no matter what the HTTP method is over here!
+	@Path("/{messageId}/comments")
+	public CommentResource getCommentResource() {
+		return new CommentResource();
+	}
 
 
 }

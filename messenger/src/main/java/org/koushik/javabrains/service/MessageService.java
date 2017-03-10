@@ -14,12 +14,6 @@ public class MessageService {
 	// stub for DB: using static class
 	private Map<Long, Message> messages = DatabaseClass.getMessages();
 	
-	// to hardcode a creation of a few messages
-	public MessageService() {
-		messages.put(1L, new Message(1, "I'm your father, Luke", "Darth Vader"));
-		messages.put(2L, new Message(2, "May the Force be with you", "Obi-Wan"));
-	}
-	
 	public List<Message> getAllMessages() {		
 		return new ArrayList<Message>(messages.values());				
 	}
