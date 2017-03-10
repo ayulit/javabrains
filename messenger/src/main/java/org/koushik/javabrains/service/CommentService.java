@@ -4,6 +4,7 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
 
+import javax.ws.rs.NotFoundException;
 import javax.ws.rs.WebApplicationException;
 import javax.ws.rs.core.Response;
 import javax.ws.rs.core.Response.Status;
@@ -47,8 +48,8 @@ public class CommentService {
 		Comment comment = comments.get(commentId);
 		
 		if (comment == null) {
-			// and here as well
-			throw new WebApplicationException(response);
+			// Let's use specific Exception inherited from 'WebApplicationException'!
+			throw new NotFoundException(response);
 		}		
 		
 		return comment;
