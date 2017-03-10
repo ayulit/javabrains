@@ -8,8 +8,8 @@ import javax.ws.rs.ext.Provider;
 import org.koushik.javabrains.model.ErrorMessage;
 
 
-// Handles ALL exceptions because of Throwable
-@Provider
+/* Handles ALL exceptions because of Throwable */
+// @Provider  // commenting this annot disables this Mapper!
 public class GenericExceptionMapper implements ExceptionMapper<Throwable> {
 
 	@Override

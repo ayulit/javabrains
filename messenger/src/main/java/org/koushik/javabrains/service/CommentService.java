@@ -4,8 +4,13 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
 
+import javax.ws.rs.WebApplicationException;
+import javax.ws.rs.core.Response;
+import javax.ws.rs.core.Response.Status;
+
 import org.koushik.javabrains.database.DatabaseClass;
 import org.koushik.javabrains.model.Comment;
+import org.koushik.javabrains.model.ErrorMessage;
 import org.koushik.javabrains.model.Message;
 
 public class CommentService {
@@ -20,8 +25,33 @@ public class CommentService {
 	}
 	
 	public Comment getComment(long messageId, long commentId) {
-		Map<Long, Comment> comments = messages.get(messageId).getComments();
-		return comments.get(commentId);
+		
+		// preparing 'ErrorMessage' for a 'Response'
+		ErrorMessage errorMessage = new ErrorMessage("Not found",
+                404, 
+                "http://www.google.com");
+
+		// preparing 'Response' for a 'WebApplicationException'
+		Response response = Response.status(Status.NOT_FOUND)
+								    .entity(errorMessage)
+							   	    .build();
+		
+		Message message = messages.get(messageId);
+		
+		// Throwing 'WebApplicationException' which is a JAX-RS's good friend :)
+		if (message == null) {
+			throw new WebApplicationException(response);
+		}
+			
+		Map<Long, Comment> comments = message.getComments();
+		Comment comment = comments.get(commentId);
+		
+		if (comment == null) {
+			// and here as well
+			throw new WebApplicationException(response);
+		}		
+		
+		return comment;
 	}
 	
 	public Comment addComment(long messageId, Comment comment) {
