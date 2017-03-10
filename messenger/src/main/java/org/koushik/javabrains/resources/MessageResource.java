@@ -13,6 +13,8 @@ import javax.ws.rs.PathParam;
 import javax.ws.rs.Produces;
 import javax.ws.rs.QueryParam;
 import javax.ws.rs.core.MediaType;
+import javax.ws.rs.core.Response;
+import javax.ws.rs.core.Response.Status;
 
 import org.koushik.javabrains.model.Message;
 import org.koushik.javabrains.resources.beans.MessageFilterBean;
@@ -47,8 +49,13 @@ public class MessageResource {
 	}
 
 	@POST
-	public Message addMessage(Message message) {
-		return messageService.addMessage(message);
+	public Response addMessage(Message message) {
+		Message newMessage = messageService.addMessage(message); 
+		
+		// we will return Response builder
+		return Response.status(Status.CREATED)
+		               .entity(newMessage)
+		               .build();
 	}	
 	
 	@PUT
