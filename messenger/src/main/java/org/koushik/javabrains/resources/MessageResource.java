@@ -47,12 +47,39 @@ public class MessageResource {
 		
 		Message message = messageService.getMessage(id);
 		
-		// Fill links
+		// HATEOAS: fill links
+		message.getLinks().clear(); // TODO: adding only if List doesn't contain this 'link'!
 		message.addLink(getUriForSelf(uriInfo, message), "self");
+		message.addLink(getUriForProfile(uriInfo, message), "profile");		
+		message.addLink(getUriForComments(uriInfo, message), "comments"); // tricky
 		
 		// resource won't catch the exception and it goes to JAX-RS
 		return message;
 		
+	}
+
+	/* Construct complete 'uri' for all COMMENTS for use in getMessage() API */
+	private String getUriForComments(UriInfo uriInfo, Message message) {
+		URI uri = uriInfo.getBaseUriBuilder()        //  http://localhost:8080/messenger/webapi
+		         .path(MessageResource.class)        //    /messages
+		         .path(MessageResource.class,  // (here we go with a TRICK!)
+		        	   "getCommentResource")         //      /{messageId}/comments
+		         .path(CommentResource.class)        //         / --OPTIONAL slash!
+		         .resolveTemplate("messageId", // (replacing {messageId} with its actual value!)
+		        		          message.getId())   
+		         .build();
+
+		return uri.toString();
+	}
+
+	/* Construct complete 'uri' for 'profile' for use in getMessage() API */
+	private String getUriForProfile(UriInfo uriInfo, Message message) {
+		URI uri = uriInfo.getBaseUriBuilder()                  //  http://localhost:8080/messenger/webapi
+				         .path(ProfileResource.class)          //    /profiles
+				         .path(message.getAuthor())            //      /{authorName}
+				         .build();
+		
+		return uri.toString();
 	}
 
 	/* Construct complete 'uri' for 'message' for use in getMessage() API */

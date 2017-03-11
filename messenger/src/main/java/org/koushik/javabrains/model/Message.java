@@ -85,13 +85,7 @@ public class Message {
 	public void addLink(String url, String rel) {
 		Link link = new Link();
 		link.setLink(url);
-		link.setRel(rel);
-		
-		// TODO: adding only if List doesn't contain this 'link'!
-		links.clear();
-				
-		links.add(link);
-		
-		
+		link.setRel(rel);				
+		links.add(link);		
 	}
 }

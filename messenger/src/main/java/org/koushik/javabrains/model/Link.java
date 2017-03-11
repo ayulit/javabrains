@@ -1,6 +1,10 @@
 package org.koushik.javabrains.model;
 
-// No need of @XmlRootElements, because it's gonna be a member of Message.java
+/* Class for HATEOAS,
+ * but we can also use JAX-RS' class javax.ws.rs.core.Link
+ * but its a liitle buggy while JSON conversion */
+
+// No need of @XmlRootElements, because it's gonna be a member of Message, so not root
 public class Link {
 
 	private String link;
