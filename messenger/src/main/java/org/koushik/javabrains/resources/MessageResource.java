@@ -1,7 +1,6 @@
 package org.koushik.javabrains.resources;
 
 import java.net.URI;
-import java.net.URISyntaxException;
 import java.util.List;
 
 import javax.ws.rs.BeanParam;
@@ -13,11 +12,9 @@ import javax.ws.rs.PUT;
 import javax.ws.rs.Path;
 import javax.ws.rs.PathParam;
 import javax.ws.rs.Produces;
-import javax.ws.rs.QueryParam;
 import javax.ws.rs.core.Context;
 import javax.ws.rs.core.MediaType;
 import javax.ws.rs.core.Response;
-import javax.ws.rs.core.Response.Status;
 import javax.ws.rs.core.UriInfo;
 
 import org.koushik.javabrains.model.Message;
@@ -46,10 +43,27 @@ public class MessageResource {
 	
 	@GET
 	@Path("/{messageId}")	
-	public Message getMessage(@PathParam("messageId") long id) {
-		// resource won't catch the exception and it goes to JAX-RS
-		return messageService.getMessage(id);
+	public Message getMessage(@PathParam("messageId") long id, @Context UriInfo uriInfo) {
 		
+		Message message = messageService.getMessage(id);
+		
+		// Fill links
+		message.addLink(getUriForSelf(uriInfo, message), "self");
+		
+		// resource won't catch the exception and it goes to JAX-RS
+		return message;
+		
+	}
+
+	/* Construct complete 'uri' for 'message' for use in getMessage() API */
+	private String getUriForSelf(UriInfo uriInfo, Message message) {
+		
+		String uri = uriInfo.getBaseUriBuilder()                  //  http://localhost:8080/messenger/webapi
+		                    .path(MessageResource.class)           //    /messages
+		                    .path(Long.toString(message.getId()))  //      /{messageId}
+		                    .build()
+		                    .toString();
+		return uri;
 	}
 
 	@POST

@@ -1,7 +1,9 @@
 package org.koushik.javabrains.model;
 
+import java.util.ArrayList;
 import java.util.Date;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
 import javax.xml.bind.annotation.XmlRootElement;
@@ -17,6 +19,9 @@ public class Message {
 	private String author;
 	// every message has a bunch of comments!
 	private Map<Long, Comment> comments = new HashMap<>();
+	
+	// List for links (HATEOAS)
+	private List<Link> links = new ArrayList<>();
  
 	public Message() {
 		/* no-arg constructor always needed,
@@ -68,4 +73,25 @@ public class Message {
 		this.comments = comments;
 	}
 	
+	public List<Link> getLinks() {
+		return links;
+	}
+
+	public void setLinks(List<Link> links) {
+		this.links = links;
+	}
+	
+	// special method for Link filling
+	public void addLink(String url, String rel) {
+		Link link = new Link();
+		link.setLink(url);
+		link.setRel(rel);
+		
+		// TODO: adding only if List doesn't contain this 'link'!
+		links.clear();
+				
+		links.add(link);
+		
+		
+	}
 }
