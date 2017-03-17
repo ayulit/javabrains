@@ -4,6 +4,7 @@ import java.util.Arrays;
 import java.util.Collections;
 import java.util.Comparator;
 import java.util.List;
+import java.util.function.Predicate;
 
 public class Unit1Exercise {
 
@@ -59,7 +60,7 @@ public class Unit1Exercise {
 
 			// Java 7 style
 			System.out.println("--- Printing all persons with last name begginig with S.");
-			printConditionally(people, new Condition() {   // method should take behaviour!
+			printConditionally(people, new Predicate<Person>() {   // method should take behaviour!
 				@Override
 				public boolean test(Person p) {
 					return p.getLastName().startsWith("S");
@@ -72,13 +73,10 @@ public class Unit1Exercise {
 			
 	}
 	
-	interface Condition {
-		boolean test(Person p);
-	}
-	
-	private static void printConditionally (List<Person> people, Condition condition) {
+	// Using out-of-the-box functional interface Predicate!
+	private static void printConditionally (List<Person> people, Predicate<Person> predicate) {
 		for (Person person : people) {
-			if (condition.test(person)) {
+			if (predicate.test(person)) {
 				System.out.println(person);
 			}
 		}
