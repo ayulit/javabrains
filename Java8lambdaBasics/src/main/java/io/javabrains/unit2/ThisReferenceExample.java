@@ -6,30 +6,33 @@ public class ThisReferenceExample {
 		p.process(i);
 	}
 	
+	public void execute() {
+		// not static anymore
+		doProcess(10, i -> {                           // here we have lambda
+			System.out.println("Value of i is " + i);
+			System.out.println(this);                  // OK with 'this', if method in which we call lambda not static
+			                                           // it will be link to 'thisReferenceExample' object
+		});
+	}
+	
 	@SuppressWarnings("static-access")
 	public static void main(String[] args) {
 		ThisReferenceExample thisReferenceExample = new ThisReferenceExample();
 		
 		// System.out.println(this); // will not work inside static method!
 		
-		thisReferenceExample.doProcess(10, new Process() {
+		// here we have lambda
+		thisReferenceExample.doProcess(10, i -> {
 			
-			@Override
-			public void process(int i) {
-				System.out.println("Value of i is " + i);
-				
-				// will be this=instance of anonymous unner class!
-				System.out.println(this);
-				
-			}
-			
-			// let's override toString method
-			public String toString() {
-				return "This is anonymous inner class.";
-			}
-			
+			System.out.println("Value of i is " + i);
+			// System.out.println(this);  // 'this' will not work inside lambda if call inside static method
 		});
 
+		thisReferenceExample.execute();
+	}
+	
+	public String toString() {
+		return "This is the main ThisReferenceExample class instance";
 	}
 
 }
