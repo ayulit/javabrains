@@ -51,13 +51,7 @@ public class Unit1Exercise {
 			System.out.println("");
 			
 			// Java 8 style
-			Nike printingLambda = (p) -> {
-				for (Person person : p) {
-					System.out.println(person);
-				}			
-			};
-			
-			printingLambda.justDoIt(people);
+			printConditionally(people, p -> true);
 			System.out.println("");
 		
 		
@@ -73,15 +67,8 @@ public class Unit1Exercise {
 			});      
 			System.out.println("");
 			
-			// Java 8 style. Here we can re-use our functional interface Nike!
-			Nike lambdaPrintsAllS = (p) -> {
-				for (Person person : p) {
-					if (person.getLastName().startsWith("S")) {
-						System.out.println(person);
-					}
-				}		
-			};
-			lambdaPrintsAllS.justDoIt(people);
+			// Java 8 style.
+			printConditionally(people, p -> p.getLastName().startsWith("S"));
 			
 	}
 	
@@ -95,10 +82,6 @@ public class Unit1Exercise {
 				System.out.println(person);
 			}
 		}
-	}
-
-	interface Nike {
-		void justDoIt(List<Person> people);
 	}
 
 	private static void printPersonJava7(List<Person> people) {
