@@ -19,8 +19,8 @@ public class MethodReferenceExample2 {
 				new Person("Emperor","Palpatine", 75)
 			);
 		
-		// lambda here
-		performConditionally(people, p -> true, p -> System.out.println(p));
+		// Method reference instead of lambda 'p -> method(p)' where 'Consumer' functional interface
+		performConditionally(people, p -> true, System.out::println); 
 
 	}
 	
