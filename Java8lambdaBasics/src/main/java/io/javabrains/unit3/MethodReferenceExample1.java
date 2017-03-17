@@ -7,9 +7,11 @@ public class MethodReferenceExample1 {
 		printMessage();
 		
 		/*
-		 * Let's do method in another Thread using lambda
+		 * Let's do method in another Thread using Method Reference syntax
+		 * instead of lambda, so there wil be
+		 * 'MethodReferenceExample1::printMessage' === '() -> printMessage()'
 		*/
-		Thread t = new Thread( () -> printMessage() );
+		Thread t = new Thread( MethodReferenceExample1::printMessage );
 		t.start();
 	}
 	
