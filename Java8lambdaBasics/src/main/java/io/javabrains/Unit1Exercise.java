@@ -46,6 +46,7 @@ public class Unit1Exercise {
 		/* Step 2: Create a method that prints all elements in the list */
 		
 			// Java 7 style
+			System.out.println("--- Printing all persons.");
 			printPersonJava7(people);
 			System.out.println("");
 			
@@ -63,7 +64,13 @@ public class Unit1Exercise {
 		/* Step 3: Create a method that prints all people that have last name beginning with S */
 
 			// Java 7 style
-			printAllS(people);
+			System.out.println("--- Printing all persons with last name begginig with S.");
+			printConditionally(people, new Condition() {   // method should take behaviour!
+				@Override
+				public boolean test(Person p) {
+					return p.getLastName().startsWith("S");
+				}    
+			});      
 			System.out.println("");
 			
 			// Java 8 style. Here we can re-use our functional interface Nike!
@@ -78,9 +85,13 @@ public class Unit1Exercise {
 			
 	}
 	
-	private static void printAllS(List<Person> people) {
+	interface Condition {
+		boolean test(Person p);
+	}
+	
+	private static void printConditionally (List<Person> people, Condition condition) {
 		for (Person person : people) {
-			if (person.getLastName().startsWith("S")) {
+			if (condition.test(person)) {
 				System.out.println(person);
 			}
 		}
