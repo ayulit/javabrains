@@ -2,6 +2,7 @@ package io.javabrains.unit3;
 
 import java.util.Arrays;
 import java.util.List;
+import java.util.stream.Stream;
 
 import io.javabrains.Person;
 
@@ -21,6 +22,12 @@ public class StreamsExample1 {
 			  .filter(p -> p.getFirstName().startsWith("L"))        // like quality control: removes from conveer!
 			  .forEach(p -> System.out.println(p.getFirstName()));  // never executes on removed elements
 		
+		
+		long count = people.stream()
+		.filter(p -> p.getFirstName().startsWith("L"))        // like quality control: removes from conveer!
+		.count();										      // terminal operation: just count elements
+		
+		System.out.println(count);
 	}
 
 }
